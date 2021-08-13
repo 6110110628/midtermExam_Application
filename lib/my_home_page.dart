@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // notesBox.clear();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Simple TODO app using Hive'),
+        title: Text('Last Time'),
       ),
       body: ValueListenableBuilder(
           valueListenable: Hive.box<Task>('TODOs').listenable(),
@@ -34,16 +34,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: _notesBox.values.length,
                 itemBuilder: (BuildContext context, int index) {
                   final todo = todosBox.getAt(index);
-                  return ListTile(
+                  return Card(
+                      child: ListTile(
+                    leading: Icon(Icons.today),
                     title: Text(todo!.task),
                     onLongPress: () => todosBox.deleteAt(index),
-                  );
+                    trailing: Icon(Icons.delete),
+                  ));
                 });
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _simpleDialog(),
         tooltip: 'AddNewTODOTask',
         child: Icon(Icons.add),
+        backgroundColor: Colors.green,
       ),
     );
   }
