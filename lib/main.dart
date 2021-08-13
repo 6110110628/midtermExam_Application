@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_application/launcher.dart';
-import 'package:midterm_application/screens/search.dart';
-import 'package:midterm_application/screens/about.dart';
-import 'package:midterm_application/screens/settings.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'my_home_page.dart';
+import 'task_model.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 void main() async {
-  await Hive.initFlutter();
-  await Hive.openBox('midterm');
   WidgetsFlutterBinding.ensureInitialized();
+  final applicatonDocumentDir =
+      await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(applicatonDocumentDir.path);
+  Hive.registerAdapter(TaskAdapter());
+  await Hive.openBox<Task>('TODOs');
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Midterm App',
+      title: 'Simple TODO App Using Hive',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
-        body: launcher(),
-      ),
-      routes: {
-        '/launcher': (context) => launcher(),
-        '/search': (context) => search(),
-        '/about': (context) => about(),
-        '/settings': (context) => settings(),
-      },
+      home: MyHomePage(),
     );
   }
 }
