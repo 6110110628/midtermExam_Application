@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_application/screens/index.dart';
+import 'package:midterm_application/launcher.dart';
 import 'package:midterm_application/screens/search.dart';
 import 'package:midterm_application/screens/about.dart';
 import 'package:midterm_application/screens/settings.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('midterm');
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -18,10 +22,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       home: Scaffold(
-        body: index(),
+        body: launcher(),
       ),
       routes: {
-        '/index': (context) => index(),
+        '/launcher': (context) => launcher(),
         '/search': (context) => search(),
         '/about': (context) => about(),
         '/settings': (context) => settings(),

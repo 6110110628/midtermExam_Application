@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class index extends StatefulWidget {
-  const index({Key? key}) : super(key: key);
+class home extends StatefulWidget {
+  const home({Key? key}) : super(key: key);
 
   @override
-  _indexState createState() => _indexState();
+  _homeState createState() => _homeState();
 }
 
 // ignore: camel_case_types
-class _indexState extends State<index> {
+class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class _indexState extends State<index> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.pushNamed(context, '/index');
+                Navigator.pushNamed(context, '/launcher');
               },
             ),
             ListTile(
